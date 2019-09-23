@@ -82,8 +82,9 @@ pickle.dump(sperical_harm_der, dosya)
 dosya.close()
 
     
-  
-        
+
+# update = j**(n+1)
+dd=0
 sperical_harm_m = np.zeros((25,10))*1j
 
 for i in range(10):
@@ -91,7 +92,7 @@ for i in range(10):
         for m in range(-n,n+1):  
             
 
-            sperical_harm_m[dd,i] = sph_harm(m, n, phi_ls[i], teta_ls[i])*m *((1j)**n)
+            sperical_harm_m[dd,i] = sph_harm(m, n, phi_ls[i], teta_ls[i])*m *((1j)**(n+1))
             dd += 1
     dd = 0
 
@@ -100,25 +101,41 @@ pickle.dump(sperical_harm_m, dosya)
 dosya.close()
 
 
-sperical_harm_ege = np.zeros((25,10))*1j
+#j üzeri n veya j üzeri n+1 olayından dolayı bunu old yaptım
+sperical_harm_m_old = np.zeros((25,10))*1j
+ff=0
+for i in range(10):
+    for n in range(N+1):
+        for m in range(-n,n+1):  
+            
+
+            sperical_harm_m_old[ff,i] = sph_harm(m, n, phi_ls[i], teta_ls[i])*m *((1j)**n)
+            ff += 1
+    ff = 0
+
+dosya = open("sph_harm_offline_m_old","wb")
+pickle.dump(sperical_harm_m_old, dosya)
+dosya.close()
+
+
+sperical_harm = np.zeros((25,10))*1j
 ee = 0
 for i in range(10):
     for n in range(N+1):
         for m in range(-n,n+1):  
             
-            sperical_harm_ege[ee,i] = sph_harm(m, n, phi_ls[i], teta_ls[i])*((1j)**n)
+            sperical_harm[ee,i] = sph_harm(m, n, phi_ls[i], teta_ls[i])
             ee += 1
     ee = 0
-""" 
 
-#dosya = open("sph_harm_offline","wb")
-#pickle.dump(sperical_harm, dosya)
-#dosya.close()
+dosya = open("sph_harm_offline","wb")
+pickle.dump(sperical_harm, dosya)
+dosya.close()
 
 #spherical_jn_offline = np.zeros((513,N+1))*1j
 #spherical_jn_der_offline = np.zeros((513,N+1))*1j
 
-"""
+
 #spherical_bn_offline = np.zeros((513,N+1))*1j
 
 N=4   

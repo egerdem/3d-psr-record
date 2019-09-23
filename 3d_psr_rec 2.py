@@ -3,6 +3,7 @@
 
 3D PSR Extrapolation - Recording - Run """
 
+""" FIRST RUN pq_Ynm_anm_offline TO UPDATE "anm_offline_whatever" """
 
 import time
 from scipy.io.wavfile import read, write
@@ -12,7 +13,7 @@ from scipy import signal
 import pickle
 from convertangle import cart2sph, cart2sph_single, cart2sphr, sph2cart
 from sphericals import spherical_bn
-import functions as ff
+import functions3 as ff
 #from functions import *
 
 file = open("nemeth_vstacked","rb")
@@ -64,7 +65,7 @@ def wwrite(signals_, rate, size, w, noverlap, overlap):
     for i in range(10):
         j = i+1
     
-        file = r'C:\Users\INFORMATICS\Desktop\3d-psr-record2\3d-psr-record\psr%d_%d%s%d_r12.wav' %(j,size,w,overlap*100)
+        file = r'C:\Users\INFORMATICS\Desktop\3d-psr-record2\3d-psr-record\psr%d_%d%s%d_r15.wav' %(j,size,w,overlap*100)
 #        file = r'/Users/egeerdem/Desktop/3d-psr-record\zpsr%d_%d%s%d.wav' %(j,size,w,overlap*100)
         
         write(file, rate, inversed_signal[i,:])
@@ -72,15 +73,15 @@ def wwrite(signals_, rate, size, w, noverlap, overlap):
 
 def main(audio, rate, size, w, overlap, noverlap):
     
-    
+#    import pickle
     files = ["spherical_jn_der_offline", "spherical_jn_offline", "sph_harm_offline", "spherical_bn_offline", "sph_harm_offline_der",
          "sph_harm_j", "sph_harm_offline_m","spherical_jn_offline_ext","spherical_jn_der_offline_ext","spherical_bn_offline"]
     
     offlines = []
 
-    file = open('anm_offline_512hann448_r12',"rb")
-    anm_offline = pickle.load(file)
-    file.close()
+    filety = open('anm_offline_512hann448_r12',"rb")
+    anm_offline = pickle.load(filety)
+    filety.close()
     
     for file in files:
         fi = open(file,"rb")
@@ -127,7 +128,7 @@ def main(audio, rate, size, w, overlap, noverlap):
     print(end - start)  
     print(sec/60)
     
-    ttx = 'l_signals_%d%s%d_r12' %(size,w,100*overlap)
+    ttx = 'l_signals_%d%s%d_r15' %(size,w,100*overlap)
     
     dosya = open(ttx,"wb")
     pickle.dump(signals_, dosya)

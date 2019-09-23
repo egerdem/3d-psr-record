@@ -49,7 +49,10 @@ def grad(teta_ls, phi_ls, k, N, ti, fi,anm_offline, rc, **o):
     
     """ pressure grad in spherical coordinates, to be used for obtaining velocity and then intensity """
     r_unit = np.array([np.sin(teta)*np.cos(phi), np.sin(teta)*np.sin(phi) , np.cos(teta)]).T
+    
     p_unit = np.array([-np.sin(phi)*np.sin(teta), np.sin(teta)*np.cos(phi) , np.array([0,0,0,0,0,0,0,0,0,0])]).T
+#    p_unit = np.array([-np.sin(phi), np.cos(phi) , np.array([0,0,0,0,0,0,0,0,0,0])]).T
+
     t_unit = np.array([np.cos(teta)*np.cos(phi), np.cos(teta)*np.sin(phi) , -np.sin(teta)]).T
 #    kr = k*rc
     
